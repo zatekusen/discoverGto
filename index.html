@@ -1,0 +1,42 @@
+﻿ <html>
+
+<head>
+<script type="text/javascript" src="js/snapfit.js"></script> 
+<script type="text/javascript" src="js/myFunc.js"></script> 
+
+<script type="text/javascript">
+ function login() {
+    var x = document.getElementById("login");
+    var userName = x.elements[0].value
+    var password = x.elements[1].value
+    
+    var ipAddress = JSON.parse(httpGet("http://httpbin.org/ip")).origin;
+    
+    localStorage.userName = userName
+    localStorage.ipAddress = ipAddress
+    window.location.href = "puzzle.html";
+}
+
+
+</script>
+
+<title>GMOT GTO</title>
+</head>
+
+<body>
+
+<h1>Welcome</h1>
+<p>Please login to continue. Non-existing account will be created automatically. Recommend to use simple password like "1234" or "abcd"</p>
+
+<form id="login" action="">
+  User: <input type="text" name="fname" value="Donald"><br>
+  Password: <input type="password" name="lname" value="Duck"><br><br>
+</form>
+
+<button onclick="login()">Submit</button>
+
+<p id="demo"></p>
+
+</body>
+
+</html>

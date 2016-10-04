@@ -1,0 +1,66 @@
+﻿ <html>
+
+<head>
+<script type="text/javascript" src="js/snapfit.js"></script> 
+<script type="text/javascript" src="js/myFunc.js"></script> 
+
+<script type="text/javascript">
+ function button1Function() {
+   var result = httpGet("http://httpbin.org/ip");
+   document.getElementById("ipAddress").innerHTML = result;
+ }
+ 
+ 
+function timer(image) {
+  var seconds_left = 20;
+  var interval = setInterval(function() {
+    document.getElementById('puzzleStatus').innerHTML = --seconds_left;
+
+    if (seconds_left <= 0)
+    {
+        alert("Time's up")
+        snapfit.solve(document.getElementById(image));
+        clearInterval(interval);
+        document.getElementById('puzzleStatus').innerHTML = 'Failed to solve the puzzle. Please try again'
+    }
+  }, 1000);
+}
+
+function loadImage(image) {
+  snapfit.add(
+    image,
+    {callback: function() {alert('You solved the puzzle!');},
+    aborder:true, aimage:true, polygon:true, space:20, level: 0}
+  );
+}
+
+function startPuzzle(imageId) {
+  timer(imageId)
+  snapfit.admix(document.getElementById(imageId))
+}
+
+window.onload = function() {
+  document.getElementById("user").innerHTML = localStorage.userName
+  document.getElementById("ipAddress").innerHTML = localStorage.ipAddress
+};
+
+</script>
+
+<title>GMOT GTO</title>
+</head>
+
+<body>
+<h1>Welcome</h1>
+
+<img id="image1" src=images/garden_01.jpg onload="loadImage(this)"
+ width=288 height=188
+>
+<button onclick="startPuzzle('image1')" type="button">Start</button>
+
+<p id=puzzleStatus></p>
+<p id=user></p>
+<p id=ipAddress></p>
+
+</body>
+
+</html>
